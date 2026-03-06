@@ -932,7 +932,7 @@ FString FBlueprintMCPServer::HandleValidateMaterial(const FString& Body)
 	bool bValid = true;
 
 	// Check for compilation errors via FMaterialResource on current platform
-	FMaterialResource* Resource = Material->GetMaterialResource(GMaxRHIShaderPlatform);
+	FMaterialResource* Resource = Material->GetMaterialResource(GMaxRHIFeatureLevel);
 	if (Resource)
 	{
 		const TArray<FString>& CompileErrors = Resource->GetCompileErrors();
