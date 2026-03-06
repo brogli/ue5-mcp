@@ -1,4 +1,5 @@
 #include "BlueprintMCPServer.h"
+#include "MaterialDomain.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "Materials/MaterialFunction.h"
@@ -119,17 +120,17 @@ FString FBlueprintMCPServer::HandleCreateMaterial(const FString& Body)
 	if (!DomainStr.IsEmpty())
 	{
 		if (DomainStr == TEXT("Surface"))
-			Material->MaterialDomain = MD_Surface;
+			Material->MaterialDomain = EMaterialDomain::MD_Surface;
 		else if (DomainStr == TEXT("DeferredDecal"))
-			Material->MaterialDomain = MD_DeferredDecal;
+			Material->MaterialDomain = EMaterialDomain::MD_DeferredDecal;
 		else if (DomainStr == TEXT("LightFunction"))
-			Material->MaterialDomain = MD_LightFunction;
+			Material->MaterialDomain = EMaterialDomain::MD_LightFunction;
 		else if (DomainStr == TEXT("Volume"))
-			Material->MaterialDomain = MD_Volume;
+			Material->MaterialDomain = EMaterialDomain::MD_Volume;
 		else if (DomainStr == TEXT("PostProcess"))
-			Material->MaterialDomain = MD_PostProcess;
+			Material->MaterialDomain = EMaterialDomain::MD_PostProcess;
 		else if (DomainStr == TEXT("UI"))
-			Material->MaterialDomain = MD_UI;
+			Material->MaterialDomain = EMaterialDomain::MD_UI;
 	}
 
 	// Parse blend mode
@@ -167,12 +168,12 @@ FString FBlueprintMCPServer::HandleCreateMaterial(const FString& Body)
 	{
 		switch (Domain)
 		{
-		case MD_Surface:        return TEXT("Surface");
-		case MD_DeferredDecal:  return TEXT("DeferredDecal");
-		case MD_LightFunction:  return TEXT("LightFunction");
-		case MD_Volume:         return TEXT("Volume");
-		case MD_PostProcess:    return TEXT("PostProcess");
-		case MD_UI:             return TEXT("UI");
+		case EMaterialDomain::MD_Surface:        return TEXT("Surface");
+		case EMaterialDomain::MD_DeferredDecal:  return TEXT("DeferredDecal");
+		case EMaterialDomain::MD_LightFunction:  return TEXT("LightFunction");
+		case EMaterialDomain::MD_Volume:         return TEXT("Volume");
+		case EMaterialDomain::MD_PostProcess:    return TEXT("PostProcess");
+		case EMaterialDomain::MD_UI:             return TEXT("UI");
 		default:                return TEXT("Surface");
 		}
 	};
@@ -248,12 +249,12 @@ FString FBlueprintMCPServer::HandleSetMaterialProperty(const FString& Body)
 	{
 		switch (Domain)
 		{
-		case MD_Surface:        return TEXT("Surface");
-		case MD_DeferredDecal:  return TEXT("DeferredDecal");
-		case MD_LightFunction:  return TEXT("LightFunction");
-		case MD_Volume:         return TEXT("Volume");
-		case MD_PostProcess:    return TEXT("PostProcess");
-		case MD_UI:             return TEXT("UI");
+		case EMaterialDomain::MD_Surface:        return TEXT("Surface");
+		case EMaterialDomain::MD_DeferredDecal:  return TEXT("DeferredDecal");
+		case EMaterialDomain::MD_LightFunction:  return TEXT("LightFunction");
+		case EMaterialDomain::MD_Volume:         return TEXT("Volume");
+		case EMaterialDomain::MD_PostProcess:    return TEXT("PostProcess");
+		case EMaterialDomain::MD_UI:             return TEXT("UI");
 		default:                return TEXT("Unknown");
 		}
 	};
@@ -295,12 +296,12 @@ FString FBlueprintMCPServer::HandleSetMaterialProperty(const FString& Body)
 		OldValue = DomainToString(Material->MaterialDomain);
 
 		EMaterialDomain NewDomain = Material->MaterialDomain;
-		if (ValueStr == TEXT("Surface"))            NewDomain = MD_Surface;
-		else if (ValueStr == TEXT("DeferredDecal")) NewDomain = MD_DeferredDecal;
-		else if (ValueStr == TEXT("LightFunction")) NewDomain = MD_LightFunction;
-		else if (ValueStr == TEXT("Volume"))         NewDomain = MD_Volume;
-		else if (ValueStr == TEXT("PostProcess"))    NewDomain = MD_PostProcess;
-		else if (ValueStr == TEXT("UI"))             NewDomain = MD_UI;
+		if (ValueStr == TEXT("Surface"))            NewDomain = EMaterialDomain::MD_Surface;
+		else if (ValueStr == TEXT("DeferredDecal")) NewDomain = EMaterialDomain::MD_DeferredDecal;
+		else if (ValueStr == TEXT("LightFunction")) NewDomain = EMaterialDomain::MD_LightFunction;
+		else if (ValueStr == TEXT("Volume"))         NewDomain = EMaterialDomain::MD_Volume;
+		else if (ValueStr == TEXT("PostProcess"))    NewDomain = EMaterialDomain::MD_PostProcess;
+		else if (ValueStr == TEXT("UI"))             NewDomain = EMaterialDomain::MD_UI;
 		else
 		{
 			return MakeErrorJson(FString::Printf(
